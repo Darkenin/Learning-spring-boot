@@ -2,7 +2,8 @@ package com.lsio.springboot.services;
 
 import java.util.List;
 
-import com.lsio.springboot.Pojos.EmployeeRequest;
+import javax.validation.Valid;
+
 import com.lsio.springboot.entities.Employee;
 import com.lsio.springboot.repositories.EmployeeRepository;
 
@@ -21,6 +22,10 @@ public class EmployeeService {
 
     public List<Employee> saveAllEmployees(List<Employee> employees){
         return employeeRepository.saveAll(employees);
+    }
+
+    public Employee saveEmployee(Employee employee){
+        return employeeRepository.save(employee);
     }
 
     public List<Employee> findAllEmployees(){

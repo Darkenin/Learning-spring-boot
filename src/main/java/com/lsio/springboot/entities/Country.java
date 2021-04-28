@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.springframework.lang.NonNull;
+
 @Entity
 @Table(name ="countries")
 public class Country {
@@ -22,8 +24,12 @@ public class Country {
     @Column(name ="country_id")
     private int id;
 
+    @NonNull
     @Column(name="country_name")
     private String countryname;
+
+    @NonNull
+    private long population;
 
     @JsonIgnore
     @OneToMany
@@ -54,6 +60,13 @@ public class Country {
         this.cities = cities;
     }
 
-    
+    public long getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(long population) {
+        this.population = population;
+    }
+   
     
 }
