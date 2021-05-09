@@ -4,10 +4,17 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.SqlResultSetMapping;
+import javax.persistence.StoredProcedureParameter;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,10 +24,39 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import com.lsio.springboot.Pojos.EmpIdName;
 
 @Entity
+
+@SqlResultSetMapping(
+    name = "EmpIdAndName", classes = {
+        @ConstructorResult(targetClass = EmpIdName.class,
+        columns = {
+            @ColumnResult(name = "employee_id"),
+            @ColumnResult(name ="employeename")            
+        }
+        )
+    }
+)
+
+@NamedStoredProcedureQueries({
+@NamedStoredProcedureQuery(name = "emp.GetEmpnameAndDept", procedureName = "procmultipleoutputs",
+parameters = {
+    @StoredProcedureParameter(mode = ParameterMode.IN, name="employeeid", type = Integer.class),
+    @StoredProcedureParameter(mode = ParameterMode.OUT, name="empname", type = String.class),
+    @StoredProcedureParameter(mode = ParameterMode.OUT, name="dept", type = String.class)
+}),
+@NamedStoredProcedureQuery(name = "emp.GetEmpIdandName", procedureName = "getemployeebyidtableset", resultSetMappings = {"EmpIdAndName"},
+parameters = {
+    @StoredProcedureParameter(mode = ParameterMode.IN, name="employeeid", type = Integer.class)
+}),
+@NamedStoredProcedureQuery(name = "emp.GetAllEmployees", procedureName = "getemployeebyidrefcursor", resultClasses = {Employee.class},
+parameters = {
+    @StoredProcedureParameter(mode = ParameterMode.REF_CURSOR, type = void.class),
+    @StoredProcedureParameter(mode = ParameterMode.IN, type = Integer.class)
+})
+})
+
 @Table(name="employees")
 public class Employee {
 

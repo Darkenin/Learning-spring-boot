@@ -1,6 +1,5 @@
 package com.lsio.springboot;
 
-import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
@@ -11,8 +10,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
+@Configuration
 public class SpringbootApplication {
 	
 	private static final String dateFormat = "yyyy-MM-dd";

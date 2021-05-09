@@ -1,13 +1,18 @@
 package com.lsio.springboot.repositories;
 
-import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.lsio.springboot.entities.Employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
@@ -23,8 +28,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findByEmployeenameEndingWith(String employeename);
     
-    //Added After Pausing the recording
-
     List<Employee> findTop5ByAge(int age);
     List<Employee> findByAgeBetween(int startage, int endage);
     List<Employee> findByAgeIn(List<Integer> agegroup);
@@ -47,4 +50,29 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findByLeftjobTrue();
     List<Employee> findByLeftjobFalse();
     List<Employee> findByLeftjob(boolean leftjob);
+
+    @Query(value ="select Gettotalemployees()", nativeQuery = true)
+    int NqgetTotalEmployees();
+
+    @Query(value ="select procsingleoutput(?1)", nativeQuery = true)
+    int NqGetEmployeeAge(int employeeid);
+
+    @Query(value ="select * from procmultipleoutputs(?1)", nativeQuery = true)
+    Map<String,?> NqGetNameandDept(int employeeid);
+
+    @Procedure(procedureName = "Gettotalemployees")
+    int ProcgetTotalEmployees();
+
+    @Procedure(procedureName ="procsingleoutput")
+    int ProcGetEmployeeAge(int employeeid);
+
+    @Procedure(name ="emp.GetEmpnameAndDept")
+    Map<String,?> ProcGetNameandDept(int employeeid);
+
+    @Query(value ="select * from getemployeebyidtableset(?1)", nativeQuery = true)
+    Map<String,?> NqGetIdAndName(int employeeid);
+
+    @Procedure(name ="emp.GetEmpIdandName")
+    Map<String,?> ProcGetIdandDept(int employeeid);
+
 }

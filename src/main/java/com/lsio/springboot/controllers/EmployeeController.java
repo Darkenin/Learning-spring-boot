@@ -1,27 +1,23 @@
 package com.lsio.springboot.controllers;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-
 
 import com.lsio.springboot.entities.Employee;
 import com.lsio.springboot.repositories.EmployeeRepository;
 import com.lsio.springboot.services.EmployeeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -83,5 +79,29 @@ public class EmployeeController {
         return employeeRepository.findTop5ByAge(age);
     }
 
+    @GetMapping("totalemployees")
+    public int getTotalEmployees(){
+        return employeeService.Gettotalemployees();
+    }
+
+    @GetMapping("getage")
+    public int getEmployeeAge(@RequestParam int employeeid){
+        return employeeService.getEmployeeAge(employeeid);
+    }
+
+    @GetMapping("getnameanddept")
+    public Map<String,?> getNameAndDept(@RequestParam int employeeid){
+        return employeeService.getEmpNameandDept(employeeid);
+    }
+
+    @GetMapping("getidandname")
+    public Object getIdAndName(@RequestParam int employeeid){
+        return employeeService.getIdAndName(employeeid);
+    }
     
+    @GetMapping("getallempref")
+    public Object getAllEmpRef(@RequestParam int employeeid){
+        return employeeService.getAllEmpRef(employeeid);
+    }
+
 }
