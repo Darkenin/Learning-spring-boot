@@ -5,6 +5,7 @@ import com.lsio.springboot.entities.Patient;
 import com.lsio.springboot.repositories.DoctorRepository;
 import com.lsio.springboot.repositories.PatientRepository;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
