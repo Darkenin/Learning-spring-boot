@@ -14,7 +14,7 @@ public class Patient extends PersonInfo {
     
     private String symptoms;
     private String healthhistory;
-
+    
     public String getSymptoms() {
         return symptoms;
     }

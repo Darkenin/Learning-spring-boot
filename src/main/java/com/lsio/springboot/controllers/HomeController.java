@@ -26,6 +26,7 @@ public class HomeController {
     @Autowired
     CourseService courseService;
 
+
     @GetMapping("sayhello")
     public String sayHello(){
         return "Hello User";
@@ -90,4 +91,5 @@ public class HomeController {
     public List<Country> getCountryByIds(@RequestBody Set<Integer> ids){
         return cityService.getCountryByIds(ids);
     }
+    
 }
