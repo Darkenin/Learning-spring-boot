@@ -35,7 +35,7 @@ public class City {
     private int countryid;
 
     @ManyToOne
-    @JoinColumn(name = "country_id", insertable = false, updatable = false)
+    @JoinColumn(name = "country_id", insertable = false, updatable = false, referencedColumnName = "country_id")
     private Country country;
      
     

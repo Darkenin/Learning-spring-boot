@@ -69,7 +69,7 @@ public class Employee {
     private String employeename;
 
     @NotNull(message = "Department is required")
-    @Pattern(regexp = "^[0-9A-Z]*$", message = "Department accepts only Alphanumeric value")
+//    @Pattern(regexp = "^[0-9A-Z]*$", message = "Department accepts only Alphanumeric value")
     @Size(min = 10, max = 50, message = "Department accepts only upto 50 character and minimum 10 characters")
     private String department;
 
